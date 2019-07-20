@@ -68,19 +68,24 @@ Xpd2APOZoLNf2gJZCycDmratthie+Ex9YULGSxYFgAlg3Ev5tQz20g==
 
         # Upload the dataset to einstein.ai
         DS = dataset(access_token=access_token)
-        path = 'data/intent_tagging.csv'
+        path = 'https://raw.githubusercontent.com/kaul-vineet/socialstudio-ml/master/data/intent_tagging.csv'
         response = DS.create_intent_dataset(path)
         print(json.dumps(response, indent=4, sort_keys=True))
 
-        # Train the model on einstein.ai [1127611 - 1127609]
-        """ id = '1127611'
-        DS = dataset(access_token=access_token)
-        response = DS.train_dataset(id)
-        if('available' in response):
-            print(json.dumps(response, indent=4, sort_keys=True))
-        else:
-            print('Response status ok?: ' + str(response.ok))
-            print(json.dumps(response.text, indent=4, sort_keys=True)) """
+        # Train the model on einstein.ai []
+        #id = '1127747'
+        #DS = dataset(access_token=access_token)
+        #response = DS.train_dataset(id)
+        #if('available' in response):
+        #    print(json.dumps(response, indent=4, sort_keys=True))
+        #else:
+        #    print('Response status ok?: ' + str(response.ok))
+        #    print(json.dumps(response.text, indent=4, sort_keys=True))
+
+        # Check the model on einstein.ai []
+        id = 'EQOUP37AEFJBB457ATKTRTHA5Q'
+        #response = DS.get_train_status(id)
+        #print(json.dumps(response.text, indent=4, sort_keys=True))
         
         # Make a prediction call using image url
         #prediction_url_response = prediction.predict_with_url(access_token, 'GeneralImageClassifier',

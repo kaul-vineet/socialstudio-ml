@@ -26,6 +26,18 @@ class dataset:
         json_response = json.loads(res.text)
         return json_response
 
+    def get_train_status(self, id):
+        from requests_toolbelt.multipart.encoder import MultipartEncoder
+        import requests
+        import json
+        LANG_DATASETS_TRAINURL = 'https://api.einstein.ai/v2/language'
+
+        headers = {'Authorization': 'Bearer ' + self.access_token,
+                   'Cache-Control': 'no-cache'}
+        res = requests.get(LANG_DATASETS_TRAINURL + '/train/'+id,
+                           headers=headers)
+        return res
+        
     def train_dataset(self, id):
         from requests_toolbelt.multipart.encoder import MultipartEncoder
         import requests
