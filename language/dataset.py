@@ -36,7 +36,8 @@ class dataset:
                    'Cache-Control': 'no-cache'}
         res = requests.get(LANG_DATASETS_TRAINURL + '/train/'+id,
                            headers=headers)
-        return res
+        json_response = json.loads(res.text)
+        return json_response
         
     def train_dataset(self, id):
         from requests_toolbelt.multipart.encoder import MultipartEncoder

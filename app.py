@@ -10,6 +10,7 @@ import prediction
 import token_generator
 
 from language.dataset import dataset
+from language.prediction import prediction
 
 def main():
 
@@ -68,38 +69,45 @@ Xpd2APOZoLNf2gJZCycDmratthie+Ex9YULGSxYFgAlg3Ev5tQz20g==
 
         # Upload the dataset to einstein.ai
         DS = dataset(access_token=access_token)
-        path = 'https://raw.githubusercontent.com/kaul-vineet/socialstudio-ml/master/data/intent_tagging.csv'
-        response = DS.create_intent_dataset(path)
-        print(json.dumps(response, indent=4, sort_keys=True))
+        #path = 'https://raw.githubusercontent.com/kaul-vineet/socialstudio-ml/master/data/intent_tagging.csv'
+        #response = DS.create_intent_dataset(path)
+        #print(json.dumps(response, indent=4, sort_keys=True))
 
         # Train the model on einstein.ai []
-        #id = '1127747'
+        id = '1127772'
         #DS = dataset(access_token=access_token)
-        #response = DS.train_dataset(id)
+        response = DS.train_dataset(id)
         #if('available' in response):
         #    print(json.dumps(response, indent=4, sort_keys=True))
         #else:
         #    print('Response status ok?: ' + str(response.ok))
         #    print(json.dumps(response.text, indent=4, sort_keys=True))
 
-        # Check the model on einstein.ai []
-        id = 'EQOUP37AEFJBB457ATKTRTHA5Q'
+        # Check the model training status on einstein.ai []
+        id = 'YRVFEBIDWGX4I6EBKDOFU5KRQM'
         #response = DS.get_train_status(id)
-        #print(json.dumps(response.text, indent=4, sort_keys=True))
-        
-        # Make a prediction call using image url
-        #prediction_url_response = prediction.predict_with_url(access_token, 'GeneralImageClassifier',
-            #'https://animalso.com/wp-content/uploads/2017/01/Siberian-Husky_7.jpg')
+        #print(json.dumps(response, indent=4, sort_keys=True))
+        #data = json.loads(json.dumps(response))
+        #print ('************ THE MODEL TRAINING IS IN PROGRESS ************')
+        #while data['status'] != 'SUCCEEDED':
+        #    print ('THE MODEL STATUS IS :' + data['status'])
+        #    time.sleep(30)
+        #else:
+        #    print ('THE MODEL STATUS IS :' + data['status'] + ' WITH LEARNING RATE OF ' + str(data['learningRate']))
 
-        # Print prediction response
-        #pprint.pprint(prediction_url_response.json())
-
-        # Make a prediction call using image file
-        # prediction_file_response = prediction.predict_with_image_file(access_token, 'GeneralImageClassifier',
-        #     '/path/to/image/file/Siberian-Husky.jpg')
-        
-        # Print prediction response
-        # pprint.pprint(prediction_file_response.json())
+        # Check the predictions on einstein.ai []
+        model_id = 'YRVFEBIDWGX4I6EBKDOFU5KRQM'
+        document = 'hey guys, im a black trans creative named wondy!! i make art, unfortunately my account was suspended and i lost my 3.5k following and clientele :( please retweet this post so i can get my product back out there as this is my income!! any support is phenomenal'
+        predict = prediction(access_token=access_token)
+        response = predict.predict_social_tag(document, model_id)
+        probabilities = response['probabilities']
+        max_prob = 0
+        max_tag = ''
+        for x in probabilities:
+            if max_prob < x['probability']*100:
+                max_prob = x['probability']*100
+                max_tag = str(x['label'])
+        print('There is ' + str(max_prob) + ' probability that this is ' + max_tag + ' post.')
 
     except Exception as e:
         traceback.print_exc()
