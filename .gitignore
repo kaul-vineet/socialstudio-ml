@@ -1,15 +1,17 @@
-*.class
+venv/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+*.pyc
+__pycache__/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+instance/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
 
 .DS_Store
 .idea/
